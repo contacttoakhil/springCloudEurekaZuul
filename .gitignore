@@ -1,0 +1,7 @@
+/.project
+.idea/*
+springCloudEurekaZuul.iml
+course-service/target/*
+discovery-service/target/*
+gateway-service/target/*
+student-service/target/*

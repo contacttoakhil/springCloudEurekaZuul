@@ -1,0 +1,34 @@
+info:
+  component: Edge Server
+  
+endpoints:
+  restart:
+    enabled: true
+  shutdown:
+    enabled: true
+  health:
+    sensitive: false
+
+zuul:
+  prefix: /api
+  routes:
+    account: 
+      path: /students/**
+      serviceId: student-service
+    customer:
+      path: /courses/**
+      serviceId: course-service
+
+ribbon:
+  eureka:
+    enabled: true
+
+eureka:
+  client:
+    serviceUrl:
+      #defaultZone: http://192.168.0.101:8761/eureka         # otherwise
+      defaultZone: http://discovery-service:8761/eureka    # use with docker-compose.yml
+    registerWithEureka: false
+      
+server:
+  port: 8765

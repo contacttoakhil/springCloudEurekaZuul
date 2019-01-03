@@ -1,0 +1,19 @@
+server:  
+  port: ${PORT:2222}
+
+spring:  
+  application:
+    name: course-service
+
+eureka:  
+  client:
+    serviceUrl:
+      #defaultZone: http://192.168.0.101:8761/eureka      # otherwise
+      defaultZone: http://discovery-service:8761/eureka   # use with docker-compose.yml
+  instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
+      
+ribbon:
+  eureka:
+    enabled: true

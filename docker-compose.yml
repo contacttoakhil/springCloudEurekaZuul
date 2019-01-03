@@ -1,0 +1,62 @@
+version: '3'
+
+services:
+  discovery-service:
+    container_name: discovery-service
+    image: discovery-service-image
+    build:
+      context: ./discovery-service
+      dockerfile: Dockerfile
+    expose:
+      - 8761
+    ports:
+        - 8761:8761
+    networks:
+      - samplenet
+
+  student-service:
+    image: student-service-image
+    build:
+      context: ./student-service
+      dockerfile: Dockerfile
+    expose:
+      - 3333
+    ports:
+      - 3333:3333
+    depends_on:
+      - discovery-service
+    networks:
+      - samplenet
+
+  course-service:
+    image: course-service-image
+    build:
+      context: ./course-service
+      dockerfile: Dockerfile
+    expose:
+      - 2222
+    ports:
+      - 2222:2222
+    depends_on:
+      - discovery-service
+    networks:
+      - samplenet
+
+  gateway-service:
+    image: gateway-service
+    build:
+      context: ./gateway-service
+      dockerfile: Dockerfile
+    expose:
+      - 8765
+    ports:
+      - 8765:8765
+    depends_on:
+      - discovery-service
+    networks:
+      - samplenet
+
+networks:
+  samplenet:
+    driver: bridge
+#depends_on specify order of container creation and destrcution
